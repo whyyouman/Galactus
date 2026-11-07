@@ -1,4 +1,4 @@
-# prd2pr
+# Galactus
 
 Open-source **PRD-to-PR** tooling. This repository currently ships **Phase 1: the indexing engine**.
 
