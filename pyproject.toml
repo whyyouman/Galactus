@@ -1,0 +1,69 @@
+[project]
+name = "prd2pr"
+version = "0.1.0"
+description = "PRD-to-PR indexing engine — parse a local repo into searchable indexes"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Jayant Sharma" }]
+dependencies = [
+    "typer>=0.12",
+    "rich>=13.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "pathspec>=0.12",
+    "tree-sitter>=0.23",
+    "tree-sitter-language-pack>=0.7",
+    "psycopg[binary,pool]>=3.2",
+    "qdrant-client>=1.12",
+    "litellm>=1.50",
+    "networkx>=3.3",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "types-PyYAML>=6.0",
+]
+
+[project.scripts]
+prd2pr = "prd2pr.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prd2pr"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/prd2pr/storage/migrations" = "prd2pr/storage/migrations"
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]  # Typer Option/Argument defaults are idiomatic
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["prd2pr"]
+
+[[tool.mypy.overrides]]
+module = ["tree_sitter_language_pack.*", "qdrant_client.*", "litellm.*", "networkx.*"]
+ignore_missing_imports = true

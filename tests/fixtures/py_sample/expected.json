@@ -1,0 +1,21 @@
+{
+  "symbols": [
+    {"file": "app/models.py", "qualified_name": "Order", "kind": "model"},
+    {"file": "app/repo.py", "qualified_name": "OrderRepo", "kind": "class"},
+    {"file": "app/repo.py", "qualified_name": "OrderRepo.find_by_id", "kind": "method"},
+    {"file": "app/repo.py", "qualified_name": "OrderRepo.save", "kind": "method"},
+    {"file": "app/service.py", "qualified_name": "OrderService", "kind": "class"},
+    {"file": "app/service.py", "qualified_name": "OrderService.cancel_order", "kind": "method"},
+    {"file": "app/service.py", "qualified_name": "OrderService.__init__", "kind": "method"},
+    {"file": "app/routes.py", "qualified_name": "list_orders", "kind": "route"},
+    {"file": "app/routes.py", "qualified_name": "cancel_order", "kind": "route"}
+  ],
+  "edges": [
+    {"type": "calls", "src_contains": "OrderService.cancel_order", "dst_contains": "find_by_id"},
+    {"type": "calls", "src_contains": "cancel_order", "dst_contains": "cancel_order"},
+    {"type": "uses_config", "dst": "config:PAYMENT_API_KEY"},
+    {"type": "imports", "src": "app/service.py", "dst_contains": "repo"},
+    {"type": "handles_route", "src_contains": "cancel_order", "dst_contains": "cancel_order"}
+  ],
+  "min_resolved_call_ratio": 0.9
+}

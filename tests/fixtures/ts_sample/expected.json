@@ -1,0 +1,27 @@
+{
+  "symbols": [
+    {"file": "src/orders/order.model.ts", "qualified_name": "OrderModel", "kind": "model"},
+    {"file": "src/orders/order.repo.ts", "qualified_name": "OrderRepo", "kind": "class"},
+    {"file": "src/orders/order.repo.ts", "qualified_name": "OrderRepo.findById", "kind": "method"},
+    {"file": "src/orders/order.repo.ts", "qualified_name": "OrderRepo.save", "kind": "method"},
+    {"file": "src/orders/payment.service.ts", "qualified_name": "PaymentService", "kind": "class"},
+    {"file": "src/orders/payment.service.ts", "qualified_name": "PaymentService.refund", "kind": "method"},
+    {"file": "src/orders/order.service.ts", "qualified_name": "OrderService", "kind": "class"},
+    {"file": "src/orders/order.service.ts", "qualified_name": "OrderService.cancelOrder", "kind": "method"},
+    {"file": "src/orders/order.controller.ts", "qualified_name": "OrderController", "kind": "class"},
+    {"file": "src/orders/order.controller.ts", "qualified_name": "OrderController.list", "kind": "route"},
+    {"file": "src/orders/order.controller.ts", "qualified_name": "OrderController.cancel", "kind": "route"},
+    {"file": "src/orders/handlers.ts", "qualified_name": "cancelOrderHandler", "kind": "function"},
+    {"file": "src/orders/orders.router.ts", "name_contains": "PATCH /:id/cancel", "kind": "route"}
+  ],
+  "edges": [
+    {"type": "calls", "src_contains": "OrderService.cancelOrder", "dst_contains": "OrderRepo.findById"},
+    {"type": "calls", "src_contains": "OrderService.cancelOrder", "dst_contains": "PaymentService.refund"},
+    {"type": "calls", "src_contains": "OrderController.cancel", "dst_contains": "OrderService.cancelOrder"},
+    {"type": "handles_route", "src_contains": "OrderController.cancel", "dst_contains": "OrderController.cancel"},
+    {"type": "handles_route", "src_contains": "PATCH /:id/cancel", "dst_contains": "cancelOrderHandler"},
+    {"type": "imports", "src": "src/orders/handlers.ts", "dst_contains": "order.service"},
+    {"type": "uses_config", "dst": "config:PAYMENT_API_KEY"}
+  ],
+  "min_resolved_call_ratio": 0.9
+}
